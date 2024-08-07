@@ -12,6 +12,15 @@ public class BoatManager : MonoBehaviour
     [Header("Component References")]
     public Rigidbody rb;
 
+    [Header("Boat Control Settings")]
+    public float SailSensitivity = 5f;
+    public float RudderSensitivity = 5f;
+
+    float currentRudderSensitivity;
+    float currentSailSensitivity;
+
+    public float controlSpeedMultiplier = 1.5f;
+
     [Header("Object References")]
     public GameObject Sail;
     public GameObject Centerboard;
@@ -86,12 +95,15 @@ public class BoatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentRudderSensitivity = RudderSensitivity;
+        currentSailSensitivity = SailSensitivity;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Update state data
+        IncreaseControlSpeed(); //hold shift key to make controls faster
         RotateSail();
         RotateRudder();
         CalculateApparentWind();
@@ -429,6 +441,20 @@ public class BoatManager : MonoBehaviour
         RudderDragForce = DragMagnitude * DragDirection;
     }
 
+    void IncreaseControlSpeed() 
+    {
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            currentRudderSensitivity = RudderSensitivity * controlSpeedMultiplier;
+            currentSailSensitivity = SailSensitivity * controlSpeedMultiplier;
+        }
+        else
+        {
+            currentRudderSensitivity = RudderSensitivity;
+            currentSailSensitivity = SailSensitivity;
+        }
+    }
+
     void RotateSail()
     {
         float rotationStep = 0.5f;
@@ -438,13 +464,13 @@ public class BoatManager : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             // Calculate potential new rotation
-            newYRotation -= rotationStep;
+            newYRotation -= rotationStep * currentSailSensitivity * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             // Calculate potential new rotation
-            newYRotation += rotationStep;
+            newYRotation += rotationStep * currentSailSensitivity * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.Space))
@@ -471,13 +497,13 @@ public class BoatManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             // Calculate potential new rotation
-            newYRotation -= rotationStep;
+            newYRotation -= rotationStep * currentRudderSensitivity * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.E))
         {
             // Calculate potential new rotation
-            newYRotation += rotationStep;
+            newYRotation += rotationStep * currentRudderSensitivity * Time.deltaTime;
         }
 
         if (Input.GetKey(KeyCode.Space))

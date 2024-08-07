@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Boat Simulator.sln"
+    "dotnet.defaultSolution": "VR-Boat-Simulator.sln"
 }
