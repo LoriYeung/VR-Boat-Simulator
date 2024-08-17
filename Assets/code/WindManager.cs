@@ -68,13 +68,13 @@ public class WindManager : MonoBehaviour
     public void DownwindOverride()
     {
         WindOverride = true;
-        WindOverrideVector = new Vector2(0, 4.5f);
+        WindOverrideVector = new Vector2(0, 5.5f);
     }
 
     public void UpwindOverride()
     {
         WindOverride = true;
-        WindOverrideVector = new Vector2(0, -4.5f);
+        WindOverrideVector = new Vector2(0, -5.5f);
     }
 
     void GenerateWind()

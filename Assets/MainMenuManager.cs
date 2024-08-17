@@ -17,9 +17,9 @@ public class MainMenuManager : MonoBehaviour
         
     }
 
-    public void StartGame() 
+    public void LoadLevel(int sceneId)
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneId);
     }
 
     public void QuitGame()

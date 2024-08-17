@@ -53,7 +53,6 @@ public class BoatManager : MonoBehaviour
 
     [Header("Sail Data")]
     public float SailArea = 7.06f; //In Meter Squared
-    public float SailWeight = 59f; //In kg
     public float SailCL;
     public float SailCD;
 
@@ -106,11 +105,14 @@ public class BoatManager : MonoBehaviour
         IncreaseControlSpeed(); //hold shift key to make controls faster
         RotateSail();
         RotateRudder();
+
         CalculateApparentWind();
         CalculateApparentWaterVelocity();
+
         SailAngleOfAttack = CalculateAngleOfAttack(Sail.transform.forward, ApparentWind, out SailUnSignedAngleOfAttack);
         CenterboardAngleOfAttack = CalculateAngleOfAttack(Centerboard.transform.forward, ApparentWaterVelocity, out CenterboardUnSignedAngleOfAttack);
         RudderAngleOfAttack = CalculateAngleOfAttack(Rudder.transform.forward, ApparentWaterVelocity, out RudderUnSignedAngleOfAttack);
+
         //Calculate Sail lift forcej54
         CalculateSailLiftForce();
         Debug.DrawRay(transform.position + ForceDebugOrigin, SailLiftForce*ForceDebugScale, Color.white);
@@ -146,7 +148,7 @@ public class BoatManager : MonoBehaviour
         rb.AddForceAtPosition(CenterboardDragForce, CenterboardForcePosition.transform.position, ForceMode.Force);
         rb.AddForceAtPosition(RudderLiftForce, RudderForcePosition.transform.position, ForceMode.Force);
         rb.AddForceAtPosition(RudderDragForce, RudderForcePosition.transform.position, ForceMode.Force);
-        ApplyBuoyancyForce();
+        //ApplyBuoyancyForce();
     }
 
     float CalculateAngleOfAttack(Vector3 ChordLine, Vector2 FluidVelocity, out float UnSignedAngleOfAttack)
@@ -344,7 +346,7 @@ public class BoatManager : MonoBehaviour
 
     void CalculateCenterboardDragForce()
     {
-        CalculateCenterboardCD(CenterboardUnSignedAngleOfAttack);
+        CalculateCenterboardCD_Test(CenterboardUnSignedAngleOfAttack);
         float DragMagnitude = 0.5f * WindManager.instance.WaterDensity * Mathf.Pow(ApparentWaterVelocity.magnitude, 2) * CenterboardArea * CenterboardCD;
         Vector3 ApparentCenterboard3D = new Vector3(ApparentWaterVelocity.x, 0, ApparentWaterVelocity.y);
         Vector3 DragDirection = ApparentCenterboard3D.normalized;
@@ -400,6 +402,110 @@ public class BoatManager : MonoBehaviour
         RudderLiftForce = LiftMagnitude * LiftDirection;
     }
 
+    void CalculateRudderCD_Test(float u_alpha)
+    {
+        if (u_alpha < 0)
+        {
+            RudderCD = 0;
+        }
+        else if (u_alpha > 0 && u_alpha <= 10)
+        {
+            RudderCD = 0.01f*u_alpha;
+        }
+        else if (u_alpha > 10 && u_alpha <= 30)
+        {
+            RudderCD = 0.025f*u_alpha - 0.15f;
+        }
+        else if (u_alpha > 30 && u_alpha <= 50)
+        {
+            RudderCD = 0.015f*u_alpha + 0.015f;
+        }
+        else if (u_alpha > 50 && u_alpha <= 60)
+        {
+            RudderCD = 0.01f*u_alpha + 0.4f;
+        }
+        else if (u_alpha > 60 && u_alpha <= 80)
+        {
+            RudderCD = 0.005f*u_alpha + 0.7f;
+        }
+        else if (u_alpha > 80 && u_alpha <= 100)
+        {
+            RudderCD = 1.1f;
+        }
+        else if (u_alpha > 100 && u_alpha <= 120)
+        {
+            RudderCD = -0.005f*u_alpha + 1.6f;
+        }
+        else if (u_alpha > 120 && u_alpha <= 140)
+        {
+            RudderCD = -0.01f*u_alpha + 2.2f;
+        }
+        else if (u_alpha > 140 && u_alpha <= 170)
+        {
+            RudderCD = -0.02333333f*u_alpha + 4.06666667f;
+        }
+        else if (u_alpha > 170 && u_alpha <= 180)
+        {
+            RudderCD = -0.01f*u_alpha + 1.8f;
+        }
+        else if (u_alpha > 180)
+        {
+            RudderCD = 0;
+        }
+    }
+
+    void CalculateCenterboardCD_Test(float u_alpha)
+    {
+        if (u_alpha < 0)
+        {
+            CenterboardCD = 0;
+        }
+        else if (u_alpha > 0 && u_alpha <= 10)
+        {
+            CenterboardCD = 0.01f*u_alpha;
+        }
+        else if (u_alpha > 10 && u_alpha <= 30)
+        {
+            CenterboardCD = 0.025f*u_alpha - 0.15f;
+        }
+        else if (u_alpha > 30 && u_alpha <= 50)
+        {
+            CenterboardCD = 0.015f*u_alpha + 0.015f;
+        }
+        else if (u_alpha > 50 && u_alpha <= 60)
+        {
+            CenterboardCD = 0.01f*u_alpha + 0.4f;
+        }
+        else if (u_alpha > 60 && u_alpha <= 80)
+        {
+            CenterboardCD = 0.005f*u_alpha + 0.7f;
+        }
+        else if (u_alpha > 80 && u_alpha <= 100)
+        {
+            CenterboardCD = 1.1f;
+        }
+        else if (u_alpha > 100 && u_alpha <= 120)
+        {
+            CenterboardCD = -0.005f*u_alpha + 1.6f;
+        }
+        else if (u_alpha > 120 && u_alpha <= 140)
+        {
+            CenterboardCD = -0.01f*u_alpha + 2.2f;
+        }
+        else if (u_alpha > 140 && u_alpha <= 170)
+        {
+            CenterboardCD = -0.02333333f*u_alpha + 4.06666667f;
+        }
+        else if (u_alpha > 170 && u_alpha <= 180)
+        {
+            CenterboardCD = -0.01f*u_alpha + 1.8f;
+        }
+        else if (u_alpha > 180)
+        {
+            CenterboardCD = 0;
+        }
+    }
+
     void CalculateRudderCD(float u_alpha)
     {
         if (u_alpha < 0)
@@ -434,7 +540,7 @@ public class BoatManager : MonoBehaviour
 
     void CalculateRudderDragForce()
     {
-        CalculateRudderCD(RudderUnSignedAngleOfAttack);
+        CalculateRudderCD_Test(RudderUnSignedAngleOfAttack);
         float DragMagnitude = 0.5f * WindManager.instance.WaterDensity * Mathf.Pow(ApparentWaterVelocity.magnitude, 2) * RudderArea * RudderCD;
         Vector3 ApparentRudder3D = new Vector3(ApparentWaterVelocity.x, 0, ApparentWaterVelocity.y);
         Vector3 DragDirection = ApparentRudder3D.normalized;
@@ -494,13 +600,13 @@ public class BoatManager : MonoBehaviour
         Vector3 currentRotation = Rudder.transform.localEulerAngles;
         float newYRotation = currentRotation.y;
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.L))
         {
             // Calculate potential new rotation
             newYRotation -= rotationStep * currentRudderSensitivity * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.J))
         {
             // Calculate potential new rotation
             newYRotation += rotationStep * currentRudderSensitivity * Time.deltaTime;
@@ -529,14 +635,16 @@ public class BoatManager : MonoBehaviour
         return angle;
     }
 
-
     void ApplyBuoyancyForce()
     {
         for (int i = 0; i < BuoyancyForcePositions.Length; i++) //i = i + 1
         {
+            //Calculate and apply gravity force
             Vector3 GravityForce = Physics.gravity / BuoyancyForcePositions.Length;
             rb.AddForceAtPosition(GravityForce, BuoyancyForcePositions[i].transform.position, ForceMode.Acceleration);
             Debug.DrawRay(BuoyancyForcePositions[i].transform.position, GravityForce, new Color(1, 0.5f, 0, 1));
+
+
             if (BuoyancyForcePositions[i].transform.position.y < 0)
             {
                 float DisplacementMultiplier = Mathf.Clamp01(-transform.position.y / DepthBeforeSubmerged) * DisplacementAmount;

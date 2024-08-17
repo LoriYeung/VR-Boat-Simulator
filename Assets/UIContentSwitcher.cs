@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIContentSwitcher : MonoBehaviour
 {
@@ -36,5 +37,10 @@ public class UIContentSwitcher : MonoBehaviour
     public void UnFreezeGame() 
     {
         Time.timeScale = 1f;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
