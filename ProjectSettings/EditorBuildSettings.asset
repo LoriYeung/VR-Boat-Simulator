@@ -15,5 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/02 - Sailing.unity
     guid: 47260f864e78a4441b138fc37fc6bd01
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 351325b1814373141876b015a70294a2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 71eaa67b382fa3649910c17345252fd1, type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 193d56c2f9c5fe34f9a2f12eff127b5b, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 6fc72367b922c7b4592fc68588bf5cf6, type: 2}
