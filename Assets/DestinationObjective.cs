@@ -17,6 +17,7 @@ public class DestinationObjective : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        //Check if reached destination
         if(other.tag == "Player" && !destinationReached)
         {
             destinationReached = true;

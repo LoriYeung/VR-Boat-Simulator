@@ -17,12 +17,14 @@ public class UIContentSwitcher : MonoBehaviour
         FreezeGame();
     }
 
+    //switching the scenes to next slide
     public void SwitchContents() 
     {
         contentObjects[contentIndex].SetActive(false);
         contentObjects[++contentIndex].SetActive(true);
     }
 
+    //switching the scenecs to previous slide
     public void SwitchBackwards()
     {
         contentObjects[contentIndex].SetActive(false);

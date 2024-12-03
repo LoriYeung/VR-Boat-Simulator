@@ -37,26 +37,20 @@ public class CameraController : MonoBehaviour
     {
         //Use Unity's input system to get mouse feedback
         float MouseXDelta = Input.GetAxis("Mouse X");
-        //Debug.Log("Mouse X Delta: " + MouseXDelta);
-
         float MouseYDelta = Input.GetAxis("Mouse Y");
-        //Debug.Log("Mouse Y Delta: " + MouseYDelta);
-        //Update the rotation of the camera pivot based on the feedback
 
+        //Update the rotation of the camera pivot based on the feedback
         float finalYDelta = MouseSensistivity * MouseYDelta * Time.deltaTime;
         float finalXDelta = MouseSensistivity * MouseXDelta * Time.deltaTime;
-        
         xRot -= finalYDelta;
         yRot += finalXDelta;
-
         xRot = Mathf.Clamp(xRot, minimumYAngle, maximumYAngle);
-
         transform.rotation = Quaternion.Euler(xRot, yRot, 0f);
-
     }
 
     void FollowTarget() 
     {
+        //camera position following target
         transform.position = new Vector3(Target.position.x, transform.position.y, Target.position.z);
     }
 }

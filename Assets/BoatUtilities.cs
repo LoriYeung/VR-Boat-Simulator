@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BoatUtilities : MonoBehaviour
 {
-    // For Level management, resetting, event systems, stc
-
+    //reset boat position and status for level management, resetting, event systems, etc
     public void ResetPositionToOrigin()
     {
         BoatManager bm = GetComponent<BoatManager>();

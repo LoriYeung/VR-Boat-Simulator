@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BoatControlsObjective : MonoBehaviour
 {
     [Header("Settings")]
-    //default: false = sail, true = rudder;
+    //false = sail, true = rudder
     public bool rudderObjective = false;
 
     [Header("References")]
@@ -40,8 +40,10 @@ public class BoatControlsObjective : MonoBehaviour
         CheckCompleted();
     }
 
+    //Level 1 objective complete check
     void CheckCompleted()
     {
+        //rudder rotation trial task
         if(!rudderObjective)
             rotation = BoatManager.Player.Sail.transform.localEulerAngles.y;
         else
@@ -50,6 +52,7 @@ public class BoatControlsObjective : MonoBehaviour
         if(rotation > 180)
             rotation -= 360;
 
+        //sail rotation trial task
         Debug.Log("Sail Rotation: " + rotation);
         if(rotation >= 45f && !turnedLeft)
         {
@@ -63,6 +66,7 @@ public class BoatControlsObjective : MonoBehaviour
             turnedRight = true;
         }
 
+        //return to tutorial after complete
         if(turnedRight && turnedLeft)
         {
             Invoke("DisableMenu", 1f);

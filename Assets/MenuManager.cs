@@ -6,7 +6,7 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
 
-    //General functions for menu switching and scenes
+    //for menu switching and scenes
 
     public void LoadMainMenu() 
     {

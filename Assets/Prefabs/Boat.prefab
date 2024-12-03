@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 598440380022771740}
-  SailSensitivity: 5
-  RudderSensitivity: 5
+  SailSensitivity: 15
+  RudderSensitivity: 0.1
   controlSpeedMultiplier: 1.5
   Sail: {fileID: 8535089495682895942}
   Centerboard: {fileID: 7506866140098630354}
@@ -199,14 +199,13 @@ MonoBehaviour:
   CenterboardDragForce: {x: 0, y: 0, z: 0}
   RudderLiftForce: {x: 0, y: 0, z: 0}
   RudderDragForce: {x: 0, y: 0, z: 0}
-  SailArea: 7.06
-  SailWeight: 59
+  SailArea: 20
   SailCL: 0
   SailCD: 0
-  CenterboardArea: 2
+  CenterboardArea: 10
   CenterboardCL: 0
   CenterboardCD: 0
-  RudderArea: 5
+  RudderArea: 0.5
   RudderCL: 0
   RudderCD: 0
   DepthBeforeSubmerged: 1

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindOverride: 1
   WindOverrideVector: {x: 0, y: -5}
-  MinimumMagnitude: 2
+  MinimumMagnitude: 5
   MaximumMagnitude: 5
   MinimumWindTime: 10000
   MaximumWindTime: 10000

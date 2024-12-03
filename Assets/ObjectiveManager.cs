@@ -5,9 +5,6 @@ using TMPro;
 
 public class ObjectiveManager : MonoBehaviour
 {
-
-
-
     [Header("Settings")]
     public int scoreToWin = 0;
     public bool hasTimer = false;
@@ -36,12 +33,12 @@ public class ObjectiveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //counts down the timer
-        if(beginTimer && timer > 0){
+        //counts down the timer during tasks
+        if(beginTimer && timer > 0)
+        {
             timer -= Time.deltaTime;
             timer_UI.text = "" + (int)timer;
         }
-
         UpdateObjectiveStatus();
     }
 
@@ -72,6 +69,7 @@ public class ObjectiveManager : MonoBehaviour
     {
         if(!objectiveOver)
         {
+            //objective complete detection
             if(timer <= 0 && currentScore < scoreToWin)
             {
                 //player loses
